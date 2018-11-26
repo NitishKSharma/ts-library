@@ -1,5 +1,8 @@
 import { Category } from './enums';
-import { Book } from './interfaces';
+import { Book, Logger, Author, Librarian } from './interfaces';
+import { UniversityLibrarian, ReferenceItem } from './classes';
+import { CalculateLateFee as CalcFee, MaxBooksAllowed, Purge } from './lib/utilityFunctions';
+import refBook from './encyclopedia';
 
 
 function GetAllBooks(): Book[] {
@@ -59,7 +62,7 @@ function LogBookTitles(titles: string[]): void {
     }
 }
 
-function GetBookByID(id: number) {
+function GetBookByID(id: number): Book {
     const allBooks = GetAllBooks();
     return allBooks.filter(book => book.id == id)[0];
 }
@@ -68,60 +71,47 @@ function CreateCustomerID(name: string, id: number): string {
     return name + id;
 }
 
-function CreateCustomre(name: string, age?: number, city?: string) : void
-{
+function CreateCustomre(name: string, age?: number, city?: string): void {
     console.log('Creating Customer', name);
-    if(age)
-    {
-        console.log('Age: ' + age);        
+    if (age) {
+        console.log('Age: ' + age);
     }
-    if(city)
-    {
+    if (city) {
         console.log('City: ' + city);
     }
 }
 
-function CheckoutBooks(customer: string, ...bookIDs: number[]) : string[]
-{
+function CheckoutBooks(customer: string, ...bookIDs: number[]): string[] {
     console.log('Checking out books for: ' + customer);
 
-    let booksCheckOuts : string[] = [];
+    let booksCheckOuts: string[] = [];
 
-    for(let id of bookIDs)
-    {
+    for (let id of bookIDs) {
         let book = GetBookByID(id);
-        if(book.available)
-        {
+        if (book.available) {
             booksCheckOuts.push(book.title);
-        }        
+        }
     }
     return booksCheckOuts;
 }
 
 function GetTitles(author: string): string[];
 function GetTitles(available: boolean): string[];
-function GetTitles(bookProperty: any): string[]
-{
+function GetTitles(bookProperty: any): string[] {
     const allBooks = GetAllBooks();
     const foundTitles: string[] = [];
 
-    if(typeof bookProperty == 'string')
-    {
-        for(let book of allBooks)
-        {
-            if(book.author == bookProperty)
-            {
+    if (typeof bookProperty == 'string') {
+        for (let book of allBooks) {
+            if (book.author == bookProperty) {
                 foundTitles.push(book.title);
             }
         }
     }
 
-    else if(typeof bookProperty == 'boolean')
-    {
-        for(let book of allBooks)
-        {
-            if(book.available == bookProperty)
-            {
+    else if (typeof bookProperty == 'boolean') {
+        for (let book of allBooks) {
+            if (book.available == bookProperty) {
                 foundTitles.push(book.title);
             }
         }
@@ -130,34 +120,22 @@ function GetTitles(bookProperty: any): string[]
     return foundTitles;
 }
 
+function PrintBook(book: Book): void {
+    console.log(book.title + ' by ' + book.author);
+}
+
 //**********************
 
-let a2Books = GetTitles('A2');
-a2Books.forEach(title => console.log(title));
+let inventory: Array<Book> =
+    [
+        { id: 10, title: 'The C Programming Language', author: 'K&R', available: true, category: Category.Software },
+        { id: 11, title: 'C#', author: 'Nitish', available: true, category: Category.Software },
+        { id: 12, title: 'Java', author: 'PD', available: true, category: Category.Software },
+        { id: 13, title: 'Node', author: 'Nitu', available: true, category: Category.Software }
+    ];
 
-// let myBooks: string[] = CheckoutBooks('Thorne', 3, 4);
-// myBooks.forEach(title => console.log(title));
+let purgedBooks: Array<Book> = Purge<Book>(inventory);
+purgedBooks.forEach(book => console.log(book.title));
 
-// LogFirstAvailable();
-
-// let poetryBooks = GetBookTitleByCategory();
-// poetryBooks.forEach(title => console.log(title));
-// CreateCustomre('Nitish');
-// CreateCustomre('PD', 0);
-// CreateCustomre('PDU', 94, 'Toronto');
-
-// let x:number;
-
-// let IdGenerator : (chars: string, nums: number) => string;
-// IdGenerator = CreateCustomerID;
-
-// let myID: string = IdGenerator('nitish', 10);
-// console.log(myID);
-
-// const fictionBooks = GetBookTitleByCategory(Category.Fiction);
-// fictionBooks.forEach((val, idx, arr) => console.log(++idx + ' - ' + val));
-
-// const allBooks = GetAllBooks();
-// LogFirstAvailable(allBooks);
-
-// console.log("hello world");
+let purgedNums: Array<number> = Purge<number>([1,2,3,4]);
+console.log(purgedNums);

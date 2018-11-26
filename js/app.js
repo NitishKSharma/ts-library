@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var enums_1 = require("./enums");
+var utilityFunctions_1 = require("./lib/utilityFunctions");
 function GetAllBooks() {
     var books = [
         {
@@ -104,25 +105,18 @@ function GetTitles(bookProperty) {
     }
     return foundTitles;
 }
+function PrintBook(book) {
+    console.log(book.title + ' by ' + book.author);
+}
 //**********************
-var a2Books = GetTitles('A2');
-a2Books.forEach(function (title) { return console.log(title); });
-// let myBooks: string[] = CheckoutBooks('Thorne', 3, 4);
-// myBooks.forEach(title => console.log(title));
-// LogFirstAvailable();
-// let poetryBooks = GetBookTitleByCategory();
-// poetryBooks.forEach(title => console.log(title));
-// CreateCustomre('Nitish');
-// CreateCustomre('PD', 0);
-// CreateCustomre('PDU', 94, 'Toronto');
-// let x:number;
-// let IdGenerator : (chars: string, nums: number) => string;
-// IdGenerator = CreateCustomerID;
-// let myID: string = IdGenerator('nitish', 10);
-// console.log(myID);
-// const fictionBooks = GetBookTitleByCategory(Category.Fiction);
-// fictionBooks.forEach((val, idx, arr) => console.log(++idx + ' - ' + val));
-// const allBooks = GetAllBooks();
-// LogFirstAvailable(allBooks);
-// console.log("hello world");
+var inventory = [
+    { id: 10, title: 'The C Programming Language', author: 'K&R', available: true, category: enums_1.Category.Software },
+    { id: 11, title: 'C#', author: 'Nitish', available: true, category: enums_1.Category.Software },
+    { id: 12, title: 'Java', author: 'PD', available: true, category: enums_1.Category.Software },
+    { id: 13, title: 'Node', author: 'Nitu', available: true, category: enums_1.Category.Software }
+];
+var purgedBooks = utilityFunctions_1.Purge(inventory);
+purgedBooks.forEach(function (book) { return console.log(book.title); });
+var purgedNums = utilityFunctions_1.Purge([1, 2, 3, 4]);
+console.log(purgedNums);
 //# sourceMappingURL=app.js.map
