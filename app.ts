@@ -1,8 +1,9 @@
 import { Category } from './enums';
-import { Book, Logger, Author, Librarian } from './interfaces';
+import { Book, Logger, Author, Librarian, Magazine } from './interfaces';
 import { UniversityLibrarian, ReferenceItem } from './classes';
 import { CalculateLateFee as CalcFee, MaxBooksAllowed, Purge } from './lib/utilityFunctions';
 import refBook from './encyclopedia';
+import Shelf from './shelf';
 
 
 function GetAllBooks(): Book[] {
@@ -134,8 +135,8 @@ let inventory: Array<Book> =
         { id: 13, title: 'Node', author: 'Nitu', available: true, category: Category.Software }
     ];
 
-let purgedBooks: Array<Book> = Purge<Book>(inventory);
-purgedBooks.forEach(book => console.log(book.title));
+// let purgedBooks: Array<Book> = Purge<Book>(inventory);
+// purgedBooks.forEach(book => console.log(book.title));
 
-let purgedNums: Array<number> = Purge<number>([1,2,3,4]);
-console.log(purgedNums);
+// let purgedNums: Array<number> = Purge<number>([1,2,3,4]);
+// console.log(purgedNums); 

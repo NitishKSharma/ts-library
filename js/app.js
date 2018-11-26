@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var enums_1 = require("./enums");
-var utilityFunctions_1 = require("./lib/utilityFunctions");
 function GetAllBooks() {
     var books = [
         {
@@ -115,8 +114,8 @@ var inventory = [
     { id: 12, title: 'Java', author: 'PD', available: true, category: enums_1.Category.Software },
     { id: 13, title: 'Node', author: 'Nitu', available: true, category: enums_1.Category.Software }
 ];
-var purgedBooks = utilityFunctions_1.Purge(inventory);
-purgedBooks.forEach(function (book) { return console.log(book.title); });
-var purgedNums = utilityFunctions_1.Purge([1, 2, 3, 4]);
-console.log(purgedNums);
+// let purgedBooks: Array<Book> = Purge<Book>(inventory);
+// purgedBooks.forEach(book => console.log(book.title));
+// let purgedNums: Array<number> = Purge<number>([1,2,3,4]);
+// console.log(purgedNums); 
 //# sourceMappingURL=app.js.map
